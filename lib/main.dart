@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'CustomCont.dart';
+import 'secondscreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -70,7 +70,12 @@ class hommee extends StatelessWidget {
 
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                      
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SecondScreen(),
+                          ),
+                        ),
                         child: Container(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
