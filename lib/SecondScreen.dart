@@ -35,7 +35,7 @@ class _SecondScreenState extends State<SecondScreen> {
     Navigator.pop(context);
   },icon:  Icon(Icons.arrow_back_ios,color: Colors.white,)),
 backgroundColor: const Color.fromARGB(226, 0, 128, 255),
-    title: Text(widget.category,style: TextStyle(color: Colors.white),
+    title: Text(widget.category,style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),
     ),  ),
 
       body:Padding(
