@@ -4,11 +4,30 @@ import 'package:newapp/SecondScreen.dart';
 import 'package:newapp/models/model.dart';
 import 'package:newapp/services/newsServices.dart';
 
+class Home extends StatefulWidget {
+  const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
 
-class Home extends StatelessWidget {
-   Home({super.key});
+class _HomeState extends State<Home> {
+  List<model> listt = [];
+  bool isLoading = true;
 
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    listt = await NewsService().getNewsByCategory("general");
+    setState(() {
+    });
+  }
+
+  @override
   
   List<String> imgs = [
     "assets/images/download (5).jpg",
@@ -37,7 +56,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("News App",
-            style: TextStyle(color: Colors.white)),
+            style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),),
         backgroundColor: const Color.fromARGB(226, 0, 128, 255),
         leading: const Icon(
           Icons.notifications_outlined,
@@ -66,7 +85,7 @@ class Home extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              SecondScreen()
+                              SecondScreen(category: title[index])
                         ),
                       );
                     },
@@ -77,7 +96,6 @@ class Home extends StatelessWidget {
                           imgs[index],
                           width: 80,
                           height: 60,
-                          fit: BoxFit.cover,
                         ),
                         const SizedBox(height: 8),
                         Text(
@@ -97,8 +115,20 @@ class Home extends StatelessWidget {
 
             const Divider(),
 
-          //LIST VIEW WITH API
-
+            Expanded(
+                child: isLoading
+                  ?  Center(child: CircularProgressIndicator())
+                  :  ListView.builder(
+                      itemCount: listt.length,
+                      itemBuilder: (context, index) {
+                        return CustomCont(
+                          title: listt[index].title ?? "NO Title",
+                          paragraph: listt[index].desc ?? "NO Description",
+                          imageLink: listt[index].img ?? "https://demofree.sirv.com/nope-not-here.jpg",
+                        );
+                      },
+                    ),
+            ),
 
 
           ],

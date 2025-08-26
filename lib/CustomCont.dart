@@ -30,7 +30,8 @@ class CustomCont extends StatelessWidget {
               ],
             ),
           ),
-          Column(children: [Image.network(imageLink, width: 140)]),
+          SizedBox(width: 10,),
+          Image.network(imageLink, width: 130),
         ],
       ),
     );

@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:newapp/models/model.dart';
+import 'package:newapp/services/newsServices.dart';
 import 'CustomCont.dart';
 
-class SecondScreen extends StatelessWidget {
-  const SecondScreen({super.key});
+class SecondScreen extends StatefulWidget {
+  final String category;
+  const SecondScreen({super.key, required this.category});
 
+  @override
+  State<SecondScreen> createState() => _SecondScreenState();
+}
+
+class _SecondScreenState extends State<SecondScreen> {
+  List<model> listt = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    listt = await NewsService().getNewsByCategory(widget.category);
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,13 +35,26 @@ class SecondScreen extends StatelessWidget {
     Navigator.pop(context);
   },icon:  Icon(Icons.arrow_back_ios,color: Colors.white,)),
 backgroundColor: const Color.fromARGB(226, 0, 128, 255),
-    title: Text("News",style: TextStyle(color: Colors.white),),  ),
+    title: Text(widget.category,style: TextStyle(color: Colors.white),
+    ),  ),
 
-      body:Column(
-                            //listview
-
-      )
+      body:Padding(
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        child:
+        Expanded(
+              child: ListView.builder(
+                      itemCount: listt.length,
+                      itemBuilder: (context, index) {
+                        return CustomCont(
+                          title: listt[index].title ?? "NO Title",
+                          paragraph: listt[index].desc ?? "NO Description",
+                          imageLink: listt[index].img ?? "https://demofree.sirv.com/nope-not-here.jpg",
+                        );
+                      },
+                    ),
+            ),
       
+    )
     ));
   }
 }

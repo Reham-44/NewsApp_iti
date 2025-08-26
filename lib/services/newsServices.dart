@@ -15,7 +15,7 @@ class NewsService {
       },
     );
 
-Map<String, dynamic> data = response.data;
+    Map<String, dynamic> data = response.data;
     List<dynamic> articles = data['articles'];
 
     List<model> list = [];
