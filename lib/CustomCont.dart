@@ -20,15 +20,17 @@ class CustomCont extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+                  maxLines: 2,
+      overflow: TextOverflow.ellipsis,
                   title,
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900),
                 ),
                 Text(paragraph,maxLines: 2,
-  overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 15.8,fontWeight: FontWeight.w300),),
+      overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 15.8,fontWeight: FontWeight.w300),),
               ],
             ),
           ),
-          Column(children: [Image.asset(imageLink, width: 160)]),
+          Column(children: [Image.network(imageLink, width: 140)]),
         ],
       ),
     );
