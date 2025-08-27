@@ -23,6 +23,7 @@ class _HomeState extends State<Home> {
 
   Future<void> getData() async {
     listt = await NewsService().getNewsByCategory("general");
+    isLoading=false;
     setState(() {
     });
   }
@@ -117,7 +118,9 @@ class _HomeState extends State<Home> {
 
             Expanded(
                 child: isLoading
-                  ?  Center(child: CircularProgressIndicator())
+                  ?  Center(child: CircularProgressIndicator(
+                    color: Colors.grey,
+                  ))
                   :  ListView.builder(
                       itemCount: listt.length,
                       itemBuilder: (context, index) {
