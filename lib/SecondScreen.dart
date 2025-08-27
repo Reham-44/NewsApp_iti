@@ -13,6 +13,7 @@ class SecondScreen extends StatefulWidget {
 
 class _SecondScreenState extends State<SecondScreen> {
   List<model> listt = [];
+  bool isLoading=true;
 
   @override
   void initState() {
@@ -22,6 +23,7 @@ class _SecondScreenState extends State<SecondScreen> {
 
   Future<void> getData() async {
     listt = await NewsService().getNewsByCategory(widget.category);
+    isLoading=false;
     setState(() {});
   }
   @override
@@ -42,7 +44,12 @@ backgroundColor: const Color.fromARGB(226, 0, 128, 255),
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         child:
         Expanded(
-              child: ListView.builder(
+          
+              child: isLoading
+                  ?  Center(child: CircularProgressIndicator(
+                    color: Colors.grey,
+                  ))
+                  :  ListView.builder(
                       itemCount: listt.length,
                       itemBuilder: (context, index) {
                         return CustomCont(
