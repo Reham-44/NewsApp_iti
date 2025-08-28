@@ -119,8 +119,9 @@ class _HomeState extends State<Home> {
             const Divider(),
 
             Expanded(
-              child: Skeletonizer(
-                enabled: isLoading,
+                              child:  FutureBuilder(future: NewsService().getNewsByCategory("general"), builder: (context, snapshot){
+                               return Skeletonizer(
+                enabled: true,
                 child: ListView.builder(
                     itemCount: listt.length,
                     itemBuilder: (context, index) {
@@ -130,9 +131,11 @@ class _HomeState extends State<Home> {
                         imageLink: listt[index].img ?? "https://demofree.sirv.com/nope-not-here.jpg",
                       );
                     },
-                  )),
-            ),
-
+                  ),
+                  );
+  } 
+   )
+            ,)
 
           ],
         ),
