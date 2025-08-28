@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newapp/models/model.dart';
 import 'package:newapp/services/newsServices.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'CustomCont.dart';
 
 class SecondScreen extends StatefulWidget {
@@ -43,13 +44,10 @@ backgroundColor: const Color.fromARGB(226, 0, 128, 255),
       body:Padding(
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         child:
-        Expanded(
-          
-              child: isLoading
-                  ?  Center(child: CircularProgressIndicator(
-                    color: Colors.grey,
-                  ))
-                  :  ListView.builder(
+        Expanded(  
+              child:  Skeletonizer(
+                  enabled: isLoading, 
+                 child: ListView.builder(
                       itemCount: listt.length,
                       itemBuilder: (context, index) {
                         return CustomCont(
@@ -59,7 +57,7 @@ backgroundColor: const Color.fromARGB(226, 0, 128, 255),
                         );
                       },
                     ),
-            ),
+            ),)
       
     )
     ));

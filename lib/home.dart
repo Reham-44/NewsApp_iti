@@ -3,6 +3,8 @@ import 'package:newapp/CustomCont.dart';
 import 'package:newapp/SecondScreen.dart';
 import 'package:newapp/models/model.dart';
 import 'package:newapp/services/newsServices.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -117,20 +119,18 @@ class _HomeState extends State<Home> {
             const Divider(),
 
             Expanded(
-                child: isLoading
-                  ?  Center(child: CircularProgressIndicator(
-                    color: Colors.grey,
-                  ))
-                  :  ListView.builder(
-                      itemCount: listt.length,
-                      itemBuilder: (context, index) {
-                        return CustomCont(
-                          title: listt[index].title ?? "NO Title",
-                          paragraph: listt[index].desc ?? "NO Description",
-                          imageLink: listt[index].img ?? "https://demofree.sirv.com/nope-not-here.jpg",
-                        );
-                      },
-                    ),
+              child: Skeletonizer(
+                enabled: isLoading,
+                child: ListView.builder(
+                    itemCount: listt.length,
+                    itemBuilder: (context, index) {
+                      return CustomCont(
+                        title: listt[index].title ?? "NO Title",
+                        paragraph: listt[index].desc ?? "NO Description",
+                        imageLink: listt[index].img ?? "https://demofree.sirv.com/nope-not-here.jpg",
+                      );
+                    },
+                  )),
             ),
 
 
