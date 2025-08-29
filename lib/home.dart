@@ -6,29 +6,11 @@ import 'package:newapp/services/newsServices.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 
-class Home extends StatefulWidget {
-  const Home({super.key});
 
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
+class Home extends StatelessWidget {
   List<model> listt = [];
   bool isLoading = true;
 
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  Future<void> getData() async {
-    listt = await NewsService().getNewsByCategory("general");
-    isLoading=false;
-    setState(() {
-    });
-  }
 
   @override
   
@@ -119,8 +101,14 @@ class _HomeState extends State<Home> {
             const Divider(),
 
             Expanded(
-                              child:  FutureBuilder(future: NewsService().getNewsByCategory("general"), builder: (context, snapshot){
-                               return Skeletonizer(
+                          child: FutureBuilder(
+                  future: NewsService().getNewsByCategory("general"),
+                  builder: (context, snapshot) {
+                    listt = snapshot.data ?? [];
+                    snapshot.hasData ? isLoading = false : isLoading = true;
+                    return Skeletonizer(
+                      effect: ShimmerEffect(baseColor: const Color.fromARGB(118, 178, 229, 255),
+                      ),
                 enabled: true,
                 child: ListView.builder(
                     itemCount: listt.length,
@@ -131,11 +119,12 @@ class _HomeState extends State<Home> {
                         imageLink: listt[index].img ?? "https://demofree.sirv.com/nope-not-here.jpg",
                       );
                     },
-                  ),
-                  );
-  } 
-   )
-            ,)
+                  
+                  )
+  
+   );
+   }
+            ,))
 
           ],
         ),
