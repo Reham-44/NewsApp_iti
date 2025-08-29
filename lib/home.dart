@@ -106,7 +106,9 @@ class Home extends StatelessWidget {
                   builder: (context, snapshot) {
                     listt = snapshot.data ?? [];
                     snapshot.hasData ? isLoading = false : isLoading = true;
-                    return Skeletonizer(
+                    return snapshot.hasError?
+                    Center(child: Text("ERROR",style: TextStyle(color: Colors.black,fontSize: 30),)) :
+                     Skeletonizer(
                       effect: ShimmerEffect(baseColor: const Color.fromARGB(118, 178, 229, 255),
                       ),
                 enabled: true,
